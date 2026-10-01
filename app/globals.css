@@ -1,0 +1,238 @@
+@import 'tailwindcss';
+
+/* palette tokens, light mode is the default cafe */
+:root {
+  --cream: #f6efe4;
+  --latte: #e6d5bf;
+  --caramel: #c68a4e;
+  --espresso: #3b2a20;
+  --mocha: #6b4a3a;
+  --chalkboard: #2e3430;
+  --chalk: #f2f2ec;
+  --sage: #8a9a7b;
+
+  /* caramel fails AA as text on cream (2.6:1), so links use this darker roast (7:1) */
+  --caramel-ink: #7a4a1e;
+  /* lighter caramel for text on the chalkboard (6:1) */
+  --caramel-chalk: #e0ac76;
+  --board: #2e3430;
+  --line: rgb(59 42 32 / 0.18);
+  --glass: rgb(255 255 255 / 0.35);
+
+  --display: var(--font-fraunces), Georgia, serif;
+  --hand: var(--font-caveat), cursive;
+  --body: var(--font-inter), system-ui, sans-serif;
+  --code: var(--font-jetbrains), ui-monospace, monospace;
+
+  color-scheme: light;
+}
+
+/* Night Shift: follows the OS unless the toggle picked a side */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --cream: #2e3430;
+    --latte: #3a423d;
+    --espresso: #f6efe4;
+    --mocha: #d6c8b4;
+    --caramel-ink: #e0ac76;
+    --board: #232825;
+    --line: rgb(246 239 228 / 0.2);
+    --glass: rgb(255 255 255 / 0.06);
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --cream: #2e3430;
+  --latte: #3a423d;
+  --espresso: #f6efe4;
+  --mocha: #d6c8b4;
+  --caramel-ink: #e0ac76;
+  --board: #232825;
+  --line: rgb(246 239 228 / 0.2);
+  --glass: rgb(255 255 255 / 0.06);
+  color-scheme: dark;
+}
+
+/* Recruiter Mode: no theme, white page, Inter only. Has to come after Night Shift */
+:root[data-mode='plain'] {
+  --cream: #ffffff;
+  --latte: #f4f4f5;
+  --espresso: #18181b;
+  --mocha: #3f3f46;
+  --caramel-ink: #1d4ed8;
+  --line: #d4d4d8;
+  --display: var(--body);
+  --hand: var(--body);
+  color-scheme: light;
+}
+:root[data-mode='plain'] .cafe-only,
+:root:not([data-mode='plain']) .plain-only {
+  display: none !important;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-latte: var(--latte);
+  --color-caramel: var(--caramel);
+  --color-caramel-ink: var(--caramel-ink);
+  --color-caramel-chalk: var(--caramel-chalk);
+  --color-espresso: var(--espresso);
+  --color-mocha: var(--mocha);
+  --color-chalkboard: var(--chalkboard);
+  --color-board: var(--board);
+  --color-chalk: var(--chalk);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+  --color-glass: var(--glass);
+  /* fixed inks that do not flip in Night Shift, for text on caramel and on paper */
+  --color-roast: #3b2a20;
+  --color-roast-soft: #6b4a3a;
+  --color-paper: #fbf8f1;
+
+  --font-display: var(--display);
+  --font-hand: var(--hand);
+  --font-sans: var(--body);
+  --font-mono: var(--code);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--cream);
+  color: var(--espresso);
+}
+
+:focus-visible {
+  outline: 2px solid var(--caramel-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.chalkboard :focus-visible {
+  outline-color: var(--chalk);
+}
+
+/* chalkboard texture, pure CSS: faint dust speckle plus a smudge */
+.chalkboard {
+  background-color: var(--board);
+  background-image:
+    radial-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    radial-gradient(ellipse at 20% 10%, rgb(255 255 255 / 0.06), transparent 55%);
+  background-size:
+    5px 5px,
+    100% 100%;
+  color: var(--chalk);
+  border: 10px solid var(--mocha);
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.25);
+}
+:root[data-theme='dark'] .chalkboard {
+  border-color: #6b4a3a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .chalkboard {
+    border-color: #6b4a3a;
+  }
+}
+
+/* wooden shelf under the jars */
+.shelf {
+  height: 14px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #6b4a3a 0 60px,
+    #7a5644 60px 64px,
+    #6b4a3a 64px 140px,
+    #5e4033 140px 143px
+  );
+  box-shadow: 0 6px 10px -6px rgb(0 0 0 / 0.5);
+}
+
+/* torn edge on receipts */
+.receipt-edge {
+  height: 10px;
+  background:
+    linear-gradient(135deg, #fbf8f1 50%, transparent 50%),
+    linear-gradient(225deg, #fbf8f1 50%, transparent 50%);
+  background-size: 12px 10px;
+}
+
+/* cards lift a little on hover */
+.lift {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.lift:hover,
+.lift:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 24px -14px rgb(0 0 0 / 0.45);
+}
+
+/* steam: runs on hover, or always when the cup asks for it */
+@keyframes steam {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-9px);
+    opacity: 0;
+  }
+}
+.steam-wisp {
+  opacity: 0;
+}
+.steam-always .steam-wisp,
+.steam-host:hover .steam-wisp,
+.steam-host:focus-within .steam-wisp {
+  animation: steam 2.6s ease-in-out infinite;
+}
+.steam-wisp:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.steam-wisp:nth-child(3) {
+  animation-delay: 1s;
+}
+.cup-liquid {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .lift:hover,
+  .lift:focus-within {
+    transform: none;
+  }
+  .steam-always .steam-wisp {
+    opacity: 0.5;
+  }
+}
+
+/* printing always gets a clean white page */
+@media print {
+  :root {
+    --cream: #ffffff !important;
+    --espresso: #000000 !important;
+    --mocha: #333333 !important;
+    --line: #999999 !important;
+  }
+  body {
+    background: #fff;
+  }
+}

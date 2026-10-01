@@ -5,6 +5,9 @@ import { ModeButton } from './ModeButton'
 import { RefillCup } from './RefillCup'
 import { LinkOrTodo } from './Todo'
 
+// how far the hero portrait is zoomed in: 112% shows the full cut-out, larger crops tighter
+const PORTRAIT_ZOOM = '135%'
+
 // the storefront leads with who Devam is, the cafe name is the label above
 export function Hero() {
   return (
@@ -26,6 +29,16 @@ export function Hero() {
         </div>
 
         <p className="mt-5 font-mono text-sm text-mocha">{site.heroLine}</p>
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {site.highlights.map((item) => (
+            <li
+              key={item}
+              className="rounded-full border border-caramel-ink/40 bg-latte px-3 py-1 font-mono text-sm font-semibold"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
         <p className="mt-4 max-w-xl font-display text-2xl sm:text-3xl">{site.tagline}</p>
 
         <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-caramel-ink">
@@ -58,7 +71,26 @@ export function Hero() {
 
       <div className="flex justify-center">
         <div className="relative">
-          {site.photo ? (
+          {site.avatar ? (
+            // pop-out portrait, zoomed to chest up: the disc sits behind, the cut-out is clipped to the disc at the bottom only
+            <div className="relative h-[19rem] w-64 sm:h-[24rem] sm:w-80">
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 aspect-square rounded-full border-4 border-mocha bg-gradient-to-b from-latte to-cream shadow-xl ring-4 ring-latte"
+              />
+              <div className="absolute inset-x-1 top-0 bottom-1 overflow-hidden rounded-b-full">
+                <Image
+                  src={site.avatar}
+                  alt={`Illustrated portrait of ${site.name}`}
+                  width={720}
+                  height={720}
+                  priority
+                  style={{ width: PORTRAIT_ZOOM }}
+                  className="absolute top-0 left-1/2 max-w-none -translate-x-1/2 drop-shadow-lg"
+                />
+              </div>
+            </div>
+          ) : site.photo ? (
             <div className="h-56 w-56 rounded-full border-4 border-mocha p-1.5 ring-4 ring-latte sm:h-72 sm:w-72">
               <Image
                 src={site.photo}
@@ -70,9 +102,15 @@ export function Hero() {
               />
             </div>
           ) : null}
-          {/* the cup keeps its easter egg, tucked beside the photo */}
-          <div className={site.photo ? 'absolute -right-6 -bottom-6 rounded-full bg-cream p-1' : ''}>
-            <RefillCup className={site.photo ? 'h-24 w-24 sm:h-28 sm:w-28' : undefined} />
+          {/* the cup keeps its easter egg, tucked beside the portrait */}
+          <div
+            className={
+              site.avatar || site.photo
+                ? 'absolute -right-6 -bottom-4 rounded-full border border-line bg-cream p-1 shadow-md'
+                : ''
+            }
+          >
+            <RefillCup className={site.avatar || site.photo ? 'h-20 w-20 sm:h-24 sm:w-24' : undefined} />
           </div>
         </div>
       </div>

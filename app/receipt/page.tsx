@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { Download } from 'lucide-react'
-import { PrintButton } from '@/components/PrintButton'
+import Image from 'next/image'
+import { Download, ExternalLink } from 'lucide-react'
 import { LinkOrTodo, TextOrTodo } from '@/components/Todo'
 import { awards } from '@/content/awards'
 import { experience } from '@/content/experience'
@@ -17,16 +17,25 @@ export const metadata: Metadata = {
 const divider = 'my-5 border-t border-dashed border-roast-soft/60 print:border-solid print:border-neutral-400'
 const heading = 'text-sm font-semibold tracking-widest uppercase'
 
-// résumé as a thermal receipt on screen, a plain one-column résumé on paper
+// the real résumé up top, with the thermal receipt as a text version underneath
 export default function ReceiptPage() {
   return (
-    <div className="mx-auto max-w-xl px-4 py-10 print:max-w-none print:p-0">
+    <div className="mx-auto max-w-4xl px-4 py-10 print:max-w-none print:p-0">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <h1 className="font-display text-3xl font-semibold">Résumé</h1>
         <div className="flex gap-2">
-          <PrintButton />
           <a
             href={site.resumePath}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold hover:bg-latte"
+          >
+            <ExternalLink size={16} aria-hidden />
+            Open PDF
+          </a>
+          <a
+            href={site.resumePath}
+            download="Devam_Dholakia_Resume.pdf"
             className="inline-flex items-center gap-2 rounded-full bg-caramel px-4 py-2 text-sm font-semibold text-roast hover:brightness-105"
           >
             <Download size={16} aria-hidden />
@@ -35,7 +44,28 @@ export default function ReceiptPage() {
         </div>
       </div>
 
-      <div className="drop-shadow-lg print:drop-shadow-none">
+      {/* the real résumé, rendered from public/resume.pdf. The text version below keeps it readable for screen readers */}
+      <a
+        href={site.resumePath}
+        target="_blank"
+        rel="noreferrer"
+        className="block overflow-hidden rounded-lg border border-line shadow-lg print:rounded-none print:border-0 print:shadow-none"
+      >
+        <Image
+          src="/resume.png"
+          alt={`Résumé of ${site.name}. Opens the PDF. A text version follows on this page`}
+          width={1445}
+          height={1870}
+          priority
+          className="h-auto w-full bg-white"
+        />
+      </a>
+
+      <details className="mx-auto mt-10 max-w-xl print:hidden">
+        <summary className="cursor-pointer font-display text-xl font-semibold">
+          Text version, as a receipt
+        </summary>
+      <div className="mt-6 drop-shadow-lg">
         <div className="bg-paper px-5 py-8 font-mono text-sm leading-relaxed text-roast sm:px-8 print:bg-white print:p-0 print:font-sans print:text-black">
           <header className="text-center print:text-left">
             <p className="tracking-widest uppercase print:hidden">{site.cafeName}</p>
@@ -157,8 +187,9 @@ export default function ReceiptPage() {
             Thank you for stopping by ☕
           </p>
         </div>
-        <div aria-hidden className="receipt-edge print:hidden" />
+        <div aria-hidden className="receipt-edge" />
       </div>
+      </details>
     </div>
   )
 }

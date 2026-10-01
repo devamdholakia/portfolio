@@ -14,8 +14,9 @@ export function RecruiterMode() {
     <div className="plain-only mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-bold">{site.name}</h1>
       <p className="mt-1 text-mocha">{site.role}</p>
+      <p className="mt-1 text-sm font-semibold">{site.highlights.join(' · ')}</p>
       <p className="mt-1 text-sm text-mocha">
-        {site.education.school} · {site.education.degree} · GPA {site.education.gpa} · {site.education.dates}
+        {site.education.school} · {site.education.degree} · {site.education.dates}
       </p>
 
       <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-caramel-ink">

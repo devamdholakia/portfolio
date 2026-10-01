@@ -7,7 +7,7 @@ import { isTodo } from '@/content/site'
 
 export function MenuItem({ project }: { project: Project }) {
   return (
-    <article className="lift steam-host flex h-full flex-col rounded-lg border border-chalk/25 bg-white/5 p-5">
+    <article className="lift steam-host relative flex h-full cursor-pointer flex-col rounded-lg border border-chalk/25 bg-white/5 p-5 hover:border-chalk/60 hover:bg-white/10">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-hand text-3xl leading-none text-caramel-chalk">{project.drink}</p>
@@ -58,11 +58,12 @@ export function MenuItem({ project }: { project: Project }) {
       )}
       {project.metricsNote && <p className="mt-2 text-xs text-chalk/80">{project.metricsNote}</p>}
 
+      {/* the link stretches over the whole card, so a click anywhere opens the details */}
       <div className="mt-auto pt-5">
         <Link
           href={`/menu/${project.slug}`}
           aria-label={`Order details: ${project.name}`}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-caramel-chalk underline decoration-1 underline-offset-4 hover:decoration-2"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-caramel-chalk underline decoration-1 underline-offset-4 after:absolute after:inset-0 after:rounded-lg after:content-[''] hover:decoration-2 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-chalk"
         >
           Order details
           <ArrowRight size={16} aria-hidden />

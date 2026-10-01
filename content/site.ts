@@ -15,7 +15,9 @@ export const site = {
     'Portfolio of Devam Dholakia, a Computer Science student at UCF building backend infrastructure and distributed systems.',
   availability: 'Now Brewing: Open to Summer 2027 opportunities',
   bio: "Hi, I'm Devam. I'm a Computer Science student at UCF (graduating May 2028) who likes building systems that don't fall over: queues, retries, and services that recover on their own. Outside of code, you'll find me at hackathons, on the pickleball court, or travelling.",
-  quickFacts: ['Based in Orlando, FL', "UCF '28", 'Java/Spring Boot'],
+  // short badges shown under the name in the hero and in Recruiter Mode
+  highlights: ['2x Hackathon Winner', 'GPA 3.93'],
+  quickFacts: ['Based in Orlando, FL', "UCF '28", 'GPA 3.93', '2x Hackathon Winner', 'Java/Spring Boot'],
   education: {
     school: 'University of Central Florida',
     degree: 'B.S. Computer Science',
@@ -24,6 +26,8 @@ export const site = {
   },
   // drop a photo in /public and point to it here, e.g. '/dev.jpg'
   photo: '/devam.jpg' as string,
+  // cut-out illustration with a transparent background, used in the hero. Leave empty to use the photo there
+  avatar: '/avatar.png' as string,
   resumePath: '/resume.pdf',
   links: {
     email: 'devd4312@gmail.com',

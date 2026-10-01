@@ -65,7 +65,9 @@ export default function ReceiptPage() {
               <p className="font-semibold">{site.education.school}</p>
               <p>{site.education.dates}</p>
             </div>
-            <p>{site.education.degree}</p>
+            <p>
+              {site.education.degree}, GPA {site.education.gpa}
+            </p>
           </section>
 
           <hr className={divider} />

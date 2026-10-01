@@ -6,7 +6,7 @@ import { Section } from './Section'
 export function AwardsWall() {
   return (
     <Section id="awards" label="On the wall" title="Awards">
-      <ul className="grid gap-6 sm:grid-cols-2">
+      <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {awards.map((award) => (
           <li
             key={`${award.place}-${award.event}`}

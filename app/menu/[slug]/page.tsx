@@ -89,13 +89,28 @@ export default async function ProjectPage({ params }: Props) {
           <TextOrTodo value={project.architecture} />
         </p>
         {project.diagram ? (
-          <Image
-            src={project.diagram.src}
-            alt={project.diagram.alt}
-            width={project.diagram.width}
-            height={project.diagram.height}
-            className="mt-5 h-auto w-full rounded-lg border border-line bg-white"
-          />
+          <figure className="mt-5 lg:-mx-24">
+            {/* wider than the text column on desktop, scrolls sideways on phones so labels stay readable */}
+            <div className="overflow-x-auto rounded-lg border border-line" tabIndex={0}>
+              <Image
+                src={project.diagram.src}
+                alt={project.diagram.alt}
+                width={project.diagram.width}
+                height={project.diagram.height}
+                className="h-auto w-full max-w-none min-w-[760px]"
+              />
+            </div>
+            <figcaption className="mt-2 text-sm text-mocha">
+              <a
+                href={project.diagram.src}
+                target="_blank"
+                rel="noreferrer"
+                className="text-caramel-ink underline underline-offset-4"
+              >
+                Open diagram full size
+              </a>
+            </figcaption>
+          </figure>
         ) : (
           <div className="mt-5 flex aspect-[16/7] items-center justify-center rounded-lg border-2 border-dashed border-line p-4 text-center font-mono text-sm text-mocha">
             Architecture diagram goes here. Add a file to /public/diagrams and set

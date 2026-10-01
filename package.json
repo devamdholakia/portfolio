@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "preview": "npx serve out",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "diagrams": "node scripts/diagrams.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.4.6",

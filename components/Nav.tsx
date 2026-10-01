@@ -24,7 +24,7 @@ export function Nav() {
         aria-label="Main"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4"
       >
-        <Link href="/" className="min-w-0 truncate font-display text-lg font-semibold text-espresso">
+        <Link href="/" className="min-w-0 font-display text-base leading-tight font-semibold text-espresso sm:text-lg">
           {CAFE_NAME}
         </Link>
 
@@ -40,7 +40,9 @@ export function Nav() {
           </ul>
 
           <ModeButton />
-          <ThemeToggle className="cafe-only hidden sm:inline-flex" />
+          <span className="cafe-only hidden sm:inline-flex">
+            <ThemeToggle />
+          </span>
 
           <button
             type="button"

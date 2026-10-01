@@ -7,7 +7,7 @@ import { SteamCup } from './SteamCup'
 const SIPS = 5
 
 // easter egg: every click takes a sip, the fifth one refills the cup
-export function RefillCup() {
+export function RefillCup({ className = 'h-56 w-56 sm:h-72 sm:w-72' }: { className?: string }) {
   const [clicks, setClicks] = useState(0)
   const [refilled, setRefilled] = useState(false)
 
@@ -30,7 +30,7 @@ export function RefillCup() {
         aria-label="Coffee cup, take a sip"
         className="steam-host block rounded-full text-espresso"
       >
-        <SteamCup always level={1 - clicks * 0.2} className="h-56 w-56 sm:h-72 sm:w-72" />
+        <SteamCup always level={1 - clicks * 0.2} className={className} />
       </button>
 
       <p aria-live="polite" className="sr-only">

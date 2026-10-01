@@ -9,6 +9,7 @@ import { ThemeToggle } from './ThemeToggle'
 
 const links = [
   { href: '/#menu', label: 'Menu' },
+  { href: '/#kitchen', label: 'Kitchen' },
   { href: '/#specials', label: 'Specials' },
   { href: '/#ingredients', label: 'Ingredients' },
   { href: '/#barista', label: 'Barista' },
@@ -29,7 +30,7 @@ export function Nav() {
         </Link>
 
         <div className="flex items-center gap-2">
-          <ul className="cafe-only mr-2 hidden items-center gap-5 md:flex">
+          <ul className="cafe-only mr-2 hidden items-center gap-5 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="text-sm font-medium text-mocha hover:text-espresso">
@@ -50,7 +51,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="cafe-only inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-espresso md:hidden"
+            className="cafe-only inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-espresso lg:hidden"
           >
             {open ? <X size={18} aria-hidden /> : <Menu size={18} aria-hidden />}
           </button>
@@ -58,7 +59,7 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div id="mobile-menu" className="cafe-only border-t border-line bg-cream px-4 py-3 md:hidden">
+        <div id="mobile-menu" className="cafe-only border-t border-line bg-cream px-4 py-3 lg:hidden">
           <ul className="flex flex-col">
             {links.map((link) => (
               <li key={link.href}>

@@ -52,7 +52,11 @@ export function Hero() {
             <LinkOrTodo value={site.links.linkedin} label="LinkedIn" />
           </li>
           <li>
-            <Link href="/receipt" className="underline decoration-1 underline-offset-4 hover:decoration-2">
+            <Link
+              href="/receipt"
+              prefetch={false}
+              className="underline decoration-1 underline-offset-4 hover:decoration-2"
+            >
               Résumé
             </Link>
           </li>
@@ -82,9 +86,10 @@ export function Hero() {
                 <Image
                   src={site.avatar}
                   alt={`Illustrated portrait of ${site.name}`}
-                  width={720}
-                  height={720}
-                  priority
+                  width={640}
+                  height={640}
+                  loading="eager"
+                  fetchPriority="high"
                   style={{ width: PORTRAIT_ZOOM }}
                   className="absolute top-0 left-1/2 max-w-none -translate-x-1/2 drop-shadow-lg"
                 />

@@ -27,7 +27,7 @@ export const site = {
   // drop a photo in /public and point to it here, e.g. '/dev.jpg'
   photo: '/devam.jpg' as string,
   // cut-out illustration with a transparent background, used in the hero. Leave empty to use the photo there
-  avatar: '/avatar.png' as string,
+  avatar: '/avatar.webp' as string,
   resumePath: '/resume.pdf',
   links: {
     email: 'devd4312@gmail.com',

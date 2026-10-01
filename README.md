@@ -10,6 +10,7 @@ npm run dev        # http://localhost:3000
 npm run build      # static export to /out
 npm run preview    # serve /out locally
 npm run typecheck
+npm test
 ```
 
 Requires Node 20 or newer.
@@ -56,6 +57,27 @@ Add an object to the `projects` array in `content/projects.ts`. The menu card, t
 ### Contrast notes
 
 The spec caramel (`#C68A4E`) is about 2.6:1 on cream, which fails AA for text. It is used for button fills and accents only. Text and links use `--caramel-ink` (`#7A4A1E`) on light backgrounds and `--caramel-chalk` (`#E0AC76`) on the chalkboard.
+
+## The Kitchen simulator
+
+The home page section "The Kitchen" (also embedded on `/menu/webhookd`) is an in-browser model of the Webhookd delivery pipeline: a queue, workers, full-jitter retries, a circuit breaker, dedup, a dead-letter shelf, and a sweeper. It runs entirely client-side.
+
+- `lib/kitchen/` is the simulation engine. It is plain TypeScript with no React, so it can be tested on its own. `engine.ts` exposes `tick`, `dispatch`, and `getState`
+- `components/kitchen/` is the UI. `Kitchen.tsx` lazy-loads `KitchenSim.tsx`, so the simulator is not in the first-load bundle
+- Retry and breaker numbers match Webhookd where the spec says so (7 attempts, breaker opens after 10 consecutive failures). Timing is in simulated milliseconds, 4 per real millisecond at 1x (`TIME_SCALE` in `clock.ts`)
+- Scenario presets live in `lib/kitchen/scenarios.ts`
+- In development the engine throws if an order is ever unaccounted for
+
+```bash
+npm test           # Vitest: backoff bounds, breaker state machine, engine invariants
+```
+
+### Barista Rush
+
+The Kitchen section opens on a small game: take orders, pour to the line, build the drink, and serve for a score and tips. The pipeline simulator is the second tab.
+
+- `lib/barista/game.ts` holds the rules and scoring, with no React, and is covered by `npm test`
+- `components/barista/` is the UI. Orders, day difficulty, and tip sizes are all in `game.ts` (`dayPlan`, `makeOrder`, `MAX_TIP`)
 
 ## Deploy (Vercel)
 

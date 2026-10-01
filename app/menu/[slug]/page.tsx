@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, Award } from 'lucide-react'
+import { Kitchen } from '@/components/kitchen/Kitchen'
 import { LinkOrTodo, TextOrTodo, Todo } from '@/components/Todo'
 import { getProject, projects } from '@/content/projects'
 import { isTodo } from '@/content/site'
@@ -83,6 +84,18 @@ export default async function ProjectPage({ params }: Props) {
           <TextOrTodo value={project.problem} />
         </p>
       </Block>
+
+      {project.slug === 'webhookd' && (
+        <Block label="The Kitchen" title="Try the delivery pipeline">
+          <p className="mb-4">
+            This is a simplified, in-browser version of how Webhookd delivers events. Place a few orders, then
+            close the counter and watch the retries, the breaker, and the recovery.
+          </p>
+          <div className="lg:-mx-24">
+            <Kitchen embedded />
+          </div>
+        </Block>
+      )}
 
       <Block label="The Recipe" title="Architecture">
         <p>

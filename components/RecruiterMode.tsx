@@ -4,6 +4,7 @@ import { experience } from '@/content/experience'
 import { projects } from '@/content/projects'
 import { isTodo, site } from '@/content/site'
 import { skills } from '@/content/skills'
+import { KitchenTeaser } from './kitchen/KitchenTeaser'
 import { LinkOrTodo, TextOrTodo } from './Todo'
 
 const heading = 'mt-10 border-b border-line pb-1 text-sm font-semibold tracking-wider uppercase'
@@ -58,6 +59,7 @@ export function RecruiterMode() {
       ))}
 
       <h2 className={heading}>Projects</h2>
+      <KitchenTeaser />
       {projects.map((project) => (
         <div key={project.slug} className="mt-4">
           <h3 className="font-semibold">

@@ -1,10 +1,17 @@
 import { specials } from '@/content/experience'
 import { Section } from './Section'
 
+// columns follow the number of specials so the row never has an empty slot
+const columns: Record<number, string> = {
+  1: 'md:mx-auto md:max-w-xl',
+  2: 'md:grid-cols-2',
+  3: 'md:grid-cols-3',
+}
+
 export function Specials() {
   return (
     <Section id="specials" label="Fresh today" title="Daily Specials">
-      <ul className="grid gap-5 md:grid-cols-3">
+      <ul className={`grid gap-5 ${columns[specials.length] ?? 'md:grid-cols-2 lg:grid-cols-4'}`}>
         {specials.map((special) => (
           <li
             key={`${special.title}-${special.org}`}

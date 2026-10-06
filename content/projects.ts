@@ -31,8 +31,8 @@ export const projects: Project[] = [
     drink: 'House Special',
     name: 'Paradise',
     tastingNote:
-      'Touch-only wrist-vibration guidance for people with visual and auditory impairments',
-    award: '3rd Best Overall, ShellHacks 2026',
+      'Touch-only guidance that leads DeafBlind users to a Waymo and onto its door handle, with no audio or screen',
+    award: '3rd Place Overall, ShellHacks 2026',
     teamNote: '4-person team',
     stack: [
       'JavaScript',
@@ -47,7 +47,8 @@ export const projects: Project[] = [
       'WebHID',
     ],
     headlineMetrics: [
-      { value: '3 signals', label: 'left, right, and forward, plus a double buzz for arrival' },
+      { value: '50ms', label: 'haptic loop fusing 5 vision models across a phone and laptop' },
+      { value: '~90% recall', label: 'picking the target Waymo, with 4 false positives in 654 negatives' },
     ],
     problem:
       'Most navigation tools assume you can see a screen or hear spoken directions. For people with combined visual and auditory impairments, a ride arriving nearby says nothing about where the car stopped, how to reach it, or where the door handle is. Paradise explores whether touch alone can cover that last stretch: it guides the wearer through vibrations on their wrists, to an object indoors or to a specific car on the street.',
@@ -63,13 +64,17 @@ export const projects: Project[] = [
       'A vocabulary of three steady signals. The first version had more and was hard to follow, so it was cut down to left, right, and forward, with a double buzz for arrival. When the buzzing stops, you stop',
       'Arrival gets its own check. From a chest camera a bottle can look close while still out of reach, so the arrival buzz waits for a size-based distance estimate and a Gemini photo check',
       'Where a model runs matters. Time-sensitive obstacle detection runs on the phone, object finding runs on the laptop, and the language model only interprets requests and confirms the final approach',
-      'An object only counts once it appears in 3 of the last 5 frames, which filters out one-frame false detections',
+      'An object only counts once it appears in 3 of the last 5 frames, which filters out one-frame false detections and avoids false obstacle alarms',
+      'Picking out the right car among look-alike robotaxis is its own model: a CLIP-based classifier trained on 779 vehicle crops',
       'Object detectors missed some obstacles, such as a box on the floor, so a depth model was added as a second layer',
       'If a person or obstacle enters the path, the walk signal stops until the way is clear',
       'There is no public API for the ride service, so a second phone stands in for the car and the ride status is simulated. The demo says so plainly',
     ],
     results: [
-      { value: '3rd', label: 'Best Overall at ShellHacks 2026' },
+      { value: '3rd', label: 'Place Overall at ShellHacks 2026, out of 300+ projects' },
+      { value: '50ms', label: 'haptic loop on two Joy-Cons, fed by 5 vision models' },
+      { value: '~90%', label: 'recall on the target Waymo, 4 false positives in 654 negatives' },
+      { value: '779', label: 'vehicle crops used to train the CLIP-based classifier' },
       { value: '3 signals', label: 'plus a double buzz for arrival' },
       { value: '3 of 5 frames', label: 'needed before a detection counts' },
       {
@@ -93,13 +98,25 @@ export const projects: Project[] = [
     drink: 'Team Roast',
     name: 'uKnight',
     tastingNote: 'Anonymous video chat for verified students',
-    teamNote: 'Built with a 6-engineer team',
-    stack: ['Spring Boot', 'WebRTC', 'React', 'PostgreSQL', 'Redis', 'GCP Cloud Run', 'Docker'],
-    headlineMetrics: [{ value: '72 users', label: 'verified .edu sign-ups in 3 weeks' }],
+    teamNote: 'Led a 6-engineer team',
+    stack: [
+      'Spring Boot',
+      'WebRTC',
+      'Next.js',
+      'PostgreSQL',
+      'Redis',
+      'Firebase',
+      'GCP Cloud Run',
+      'Docker',
+    ],
+    headlineMetrics: [
+      { value: '72 users', label: 'verified .edu sign-ups in 3 weeks' },
+      { value: '<100ms', label: 'peer-to-peer video latency, with 28–56ms of call setup' },
+    ],
     problem:
       'On a large campus you are surrounded by thousands of people, yet most interactions stay inside existing friend groups and majors. uKnight brings back spontaneous video chat inside a verified community: only students with a school .edu email can join, get matched, and talk, with built-in games and icebreakers to get past the awkward first minute.',
     architecture:
-      'A Next.js front end talks to a Spring Boot (Java 21) backend over WebSockets with STOMP for signaling, and WebRTC carries peer-to-peer media. Redis holds the matchmaking queue, session state, and a live online counter. PostgreSQL persists account state. The signaling and API tiers are containerized with Docker and run on GCP Cloud Run, with the front end on Vercel.',
+      'A Next.js front end talks to a Spring Boot (Java 21) backend over STOMP/WebSockets, with a SockJS fallback, for signaling, and WebRTC carries peer-to-peer media. Redis holds the matchmaking queue, session state, and a live online counter. PostgreSQL persists account state. The signaling and API tiers are containerized with Docker and run on GCP Cloud Run, with the front end on Vercel.',
     diagram: {
       src: '/diagrams/uknight.svg',
       alt: 'uKnight architecture: two student browsers signal through a Spring Boot service on Cloud Run backed by Redis, PostgreSQL, and Firestore, while media flows peer to peer over WebRTC with a TURN fallback',
@@ -112,11 +129,13 @@ export const projects: Project[] = [
       'STUN/TURN fallback relays through TURN when symmetric NAT blocks a direct peer path, which keeps calls connecting on locked-down campus networks',
       'Session state lives in Redis hashes with a 2-hour TTL instead of in-memory maps, so it survives restarts and is shared across instances',
       'Stale queue entries older than 5 minutes are pruned on each match attempt, as a safety net for connections that dropped without a clean disconnect',
-      'Signup is gated behind .edu verification, so safety is part of onboarding and not bolted on later',
+      'Signup is gated behind .edu OTP verification and every connection carries a Firebase token, so safety is part of onboarding and not bolted on later',
     ],
     results: [
       { value: '72', label: 'verified .edu users in 3 weeks' },
-      { value: '6', label: 'engineers on the team' },
+      { value: '<100ms', label: 'peer-to-peer video latency' },
+      { value: '28–56ms', label: 'call-setup delay over STOMP/WebSocket signaling' },
+      { value: '6', label: 'engineers on the team, which I led' },
     ],
     next: [
       'Multi-campus support beyond the first university',
@@ -139,7 +158,7 @@ export const projects: Project[] = [
     teamNote: 'Built at Hacklytics 2026 with a 4-person team',
     stack: ['Python', 'XGBoost', 'NumPy', 'FastAPI', 'WebSockets', 'Next.js'],
     headlineMetrics: [
-      { value: '0.91s MAE', label: 'at mid-race, a 41% cut over the naive baseline' },
+      { value: '0.35s MAE', label: 'lap-time error (0.996 R², 5-fold CV), 0.64s on an unseen Monza race' },
       { value: '14ms p95', label: 'for 10,000 Monte Carlo race simulations' },
     ],
     problem:
@@ -154,14 +173,15 @@ export const projects: Project[] = [
     },
     decisions: [
       'Two-stage lap-time model. Ridge handles the circuit-level baseline because, with one row per circuit, a regularized linear model extrapolates more safely than a tree. XGBoost then learns the per-lap residual, where it is strong on tabular data with nonlinear interactions',
-      'Honest evaluation over a flattering one. Inflated cross-validation scores were traced to a base-pace target leak, and validation was rebuilt around grouped and forward-chaining splits. Under forward-chaining validation the number is 0.91s',
+      'Built to generalize to new tracks. A base-pace feature was letting the model memorize circuits, so it was removed, and the model was checked on a Monza race it never saw: 0.64s average error there, against 0.35s under 5-fold CV',
       'Monte Carlo vectorized with NumPy, so 10,000 simulations run at 14ms p95',
       'WebSocket streaming instead of request/response, pushing strategy updates to the client at 120 per second',
       'The language model only formats the result into a radio call. All of the math stays in the model and the simulation',
     ],
     results: [
-      { value: '0.91s', label: 'lap-time MAE at mid-race, under forward-chaining validation' },
-      { value: '41%', label: 'error cut over a mean-of-observed-laps baseline' },
+      { value: '0.35s', label: 'average lap-time error, 5-fold cross-validation' },
+      { value: '0.996', label: 'R² under 5-fold cross-validation' },
+      { value: '0.64s', label: 'average error on an unseen Monza race' },
       { value: '14ms p95', label: 'for 10,000 race simulations' },
       { value: '120/sec', label: 'strategy updates streamed over WebSockets' },
       { value: '10,244 laps', label: 'cleaned, across 11 races and 22 drivers' },

@@ -15,11 +15,11 @@ export const experience: Role[] = [
     location: 'San Antonio, TX',
     dates: 'May to August 2026',
     bullets: [
-      "Collapsed a 4+ screen rep lookup into a single round-trip by resolving a customer's linked-account graph server-side, shipping the feature in Spring Boot with a React/Redux client",
-      'Drove end-to-end development of the feature, from data model and API contract through production rollout, targeting the service-rep workflow that drives average handle time',
-      'Migrated 6 legacy internal-service integrations onto GraphQL, replacing brittle REST response parsing with a typed contract that lets callers select only the fields they need',
+      'Cut a customer lookup from 4+ screens to one view for service reps by fetching linked accounts on the server with Spring Boot and React/Redux',
+      'Shipped the lookup feature to production to lower average handle time on rep calls by owning it end to end, from data model and API design through rollout',
+      'Moved 6 legacy internal-service integrations off fragile REST response parsing by rebuilding them on a typed GraphQL API where callers request only the fields they need',
     ],
-    stack: ['Spring Boot', 'React/Redux', 'GraphQL', 'Redis', 'YugabyteDB', 'GCP'],
+    stack: ['Spring Boot', 'React/Redux', 'GraphQL'],
   },
   {
     title: 'Research Assistant',
@@ -27,8 +27,8 @@ export const experience: Role[] = [
     location: 'Orlando, FL',
     dates: 'April 2026 to present',
     bullets: [
-      'Analyzed and synthesized methodologies from 65 papers to construct the related-works framework for a SIGGRAPH submission on language-conditioned 3D scene generation',
-      'Automated NASA-TLX and SUS survey scoring by engineering a QLoRA fine-tuning pipeline for LLaMA on consumer-grade hardware, ensembling weighted models to improve accuracy',
+      'Built the related-work section for a SIGGRAPH submission on generating 3D scenes from text by reviewing and comparing methods across 65 papers',
+      'Automated scoring of NASA-TLX and SUS user surveys by fine-tuning LLaMA with QLoRA on consumer hardware and combining several weighted models to improve accuracy',
     ],
     stack: ['PyTorch', 'QLoRA / PEFT', 'LLaMA'],
   },
@@ -41,12 +41,7 @@ export const specials: Special[] = [
   {
     title: 'Research Assistant',
     org: 'UCF ISUE Lab',
-    note: 'Language-conditioned 3D scene generation, LLaMA fine-tuning with QLoRA, and contributing to a SIGGRAPH-related paper',
+    note: 'Generating 3D scenes from text, fine-tuning LLaMA with QLoRA, and building the related-work section for a SIGGRAPH submission',
   },
-  { title: 'Secretary', org: 'AI@UCF' },
-  {
-    title: 'Incoming Software Engineering Intern',
-    org: 'USAA',
-    note: 'Summer 2027, return offer',
-  },
+  { title: 'Secretary', org: 'AI@UCF', note: '450+ members, hosting technical workshops for student members' },
 ]

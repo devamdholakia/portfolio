@@ -19,7 +19,7 @@ export const skills: SkillJar[] = [
   },
   {
     category: 'ML & Data',
-    items: ['XGBoost', 'scikit-learn', 'NumPy', 'pandas', 'PyTorch (QLoRA/PEFT)'],
+    items: ['XGBoost', 'scikit-learn', 'NumPy', 'pandas', 'PyTorch'],
   },
   {
     category: 'Databases & Infra',

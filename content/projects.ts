@@ -158,7 +158,7 @@ export const projects: Project[] = [
     teamNote: 'Built at Hacklytics 2026 with a 4-person team',
     stack: ['Python', 'XGBoost', 'NumPy', 'FastAPI', 'WebSockets', 'Next.js'],
     headlineMetrics: [
-      { value: '0.35s MAE', label: 'lap-time error (0.996 R², 5-fold CV), 0.64s on an unseen Monza race' },
+      { value: '0.91s', label: 'mid-race lap-time error using only laps run so far, 41% better than a naive baseline' },
       { value: '14ms p95', label: 'for 10,000 Monte Carlo race simulations' },
     ],
     problem:
@@ -173,15 +173,15 @@ export const projects: Project[] = [
     },
     decisions: [
       'Two-stage lap-time model. Ridge handles the circuit-level baseline because, with one row per circuit, a regularized linear model extrapolates more safely than a tree. XGBoost then learns the per-lap residual, where it is strong on tabular data with nonlinear interactions',
-      'Built to generalize to new tracks. A base-pace feature was letting the model memorize circuits, so it was removed, and the model was checked on a Monza race it never saw: 0.64s average error there, against 0.35s under 5-fold CV',
+      'Built to generalize to new tracks. A base-pace feature was leaking circuit data into the model, so it was removed',
+      'Predictions only use laps run so far in the race, so the 0.91s mid-race error reflects what the pit wall would see live',
       'Monte Carlo vectorized with NumPy, so 10,000 simulations run at 14ms p95',
       'WebSocket streaming instead of request/response, pushing strategy updates to the client at 120 per second',
       'The language model only formats the result into a radio call. All of the math stays in the model and the simulation',
     ],
     results: [
-      { value: '0.35s', label: 'average lap-time error, 5-fold cross-validation' },
-      { value: '0.996', label: 'R² under 5-fold cross-validation' },
-      { value: '0.64s', label: 'average error on an unseen Monza race' },
+      { value: '0.91s', label: 'mid-race lap-time error, using only laps run so far' },
+      { value: '41%', label: 'better than a naive baseline' },
       { value: '14ms p95', label: 'for 10,000 race simulations' },
       { value: '120/sec', label: 'strategy updates streamed over WebSockets' },
       { value: '10,244 laps', label: 'cleaned, across 11 races and 22 drivers' },

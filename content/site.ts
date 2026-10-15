@@ -6,7 +6,7 @@ export const site = {
   name: 'Devam Dholakia',
   shortName: 'Devam',
   // used for canonical links, sitemap, and the Open Graph image
-  url: 'https://TODO-DOMAIN.vercel.app',
+  url: 'https://devamd.dev',
   tagline: 'Freshly brewed backend systems, served reliably',
   subline: 'Devam Dholakia · CS @ UCF · Backend & Distributed Systems',
   heroLine: 'CS @ UCF · Backend & Distributed Systems · Orlando, FL',

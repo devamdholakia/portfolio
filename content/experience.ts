@@ -15,22 +15,21 @@ export const experience: Role[] = [
     location: 'San Antonio, TX',
     dates: 'May to August 2026',
     bullets: [
-      'Cut a customer lookup from 4+ screens to one view for service reps by fetching linked accounts on the server with Spring Boot and React/Redux',
-      'Shipped the lookup feature to production to lower average handle time on rep calls by owning it end to end, from data model and API design through rollout',
-      'Moved 6 legacy internal-service integrations off fragile REST response parsing by rebuilding them on a typed GraphQL API where callers request only the fields they need',
+      "Built product-based member search in Conversant, USAA's internal CRM, cutting a member lookup from 4+ screens to one React/Redux view by fetching linked accounts and product details server-side in Spring Boot",
+      'Replaced 6 hand-parsed legacy REST integrations with one typed GraphQL API so the CRM fetches only the fields it needs through a single schema, rolled out behind a feature flag with instant legacy fallback',
+      'Shipped member search to production in 3 staged releases (roles config, GraphQL API, React front end) so each layer could be verified and rolled back independently, after designing the data model and API contract',
     ],
     stack: ['Spring Boot', 'React/Redux', 'GraphQL'],
   },
   {
     title: 'Research Assistant',
-    org: 'UCF ISUE Lab',
+    org: 'Hardening Build Systems Project, UCF',
     location: 'Orlando, FL',
-    dates: 'April 2026 to present',
+    dates: 'September 2026 to present',
     bullets: [
-      'Built the related-work section for a SIGGRAPH submission on generating 3D scenes from text by reviewing and comparing methods across 65 papers',
-      'Automated scoring of NASA-TLX and SUS user surveys by fine-tuning LLaMA with QLoRA on consumer hardware and combining several weighted models to improve accuracy',
+      'Classifying 100+ ACM papers by build pipeline attack (secret exfiltration, binary backdoors, pipeline hijacking) across GitHub Actions, Jenkins, and Maven to scope a systematic review of CI/CD supply-chain security',
     ],
-    stack: ['PyTorch', 'QLoRA / PEFT', 'LLaMA'],
+    stack: ['GitHub Actions', 'Jenkins', 'Maven'],
   },
 ]
 
@@ -40,8 +39,12 @@ export type Special = { title: string; org: string; note?: string }
 export const specials: Special[] = [
   {
     title: 'Research Assistant',
-    org: 'UCF ISUE Lab',
-    note: 'Generating 3D scenes from text, fine-tuning LLaMA with QLoRA, and building the related-work section for a SIGGRAPH submission',
+    org: 'Hardening Build Systems Project, UCF',
+    note: 'Classifying 100+ ACM papers on CI/CD supply-chain attacks to scope a systematic review of build pipeline security',
   },
-  { title: 'Secretary', org: 'AI@UCF', note: '450+ members, hosting technical workshops for student members' },
+  {
+    title: 'Secretary',
+    org: 'AI@UCF',
+    note: '450+ members, hosted 10+ hands-on workshops on LLMs, AI agents, and NLP averaging 20+ attendees',
+  },
 ]
